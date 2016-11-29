@@ -54,6 +54,9 @@ const UsersReducer =  (state = initialState, action = {}) => {
             case types.SIGNUP:
                 return startLoading(state, action)
 
+            case types.SIGNUP_FAIL:
+                return stopLoading(state, action)
+
             case types.SIGNUP_SUCCESS:
                 var usersMap = Object.assign({}, state.usersMap, {[action.user.id]: action.user});
                 return {
@@ -62,9 +65,6 @@ const UsersReducer =  (state = initialState, action = {}) => {
                     usersMap: usersMap,
                     loading: false
                 }
-
-            case types.SIGNUP_FAIL:
-                return startLoading(state, action)
 
 
             case  types.LOGOUT:
