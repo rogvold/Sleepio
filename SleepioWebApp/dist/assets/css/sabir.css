@@ -1,0 +1,39 @@
+/*Sabir React framework core styles*/
+
+/*auth form*/
+.auth_form{
+
+}
+
+.auth_form .form_placeholder{
+
+}
+
+.auth_form .switcher_placeholder{
+    margin-top: 10px;
+}
+
+.auth_form .switcher_placeholder .switcher{
+    opacity: 0.7;
+    text-align: center;
+}
+
+.auth_form .switcher_placeholder .switcher .switcher_link{
+    cursor: pointer;
+    margin-left: 5px;
+    text-decoration: underline;
+}
+
+.auth_form .switcher_placeholder .switcher .switcher_link:hover{
+    font-weight: bold;
+}
+
+.auth_panel{
+    background: white;
+    position: relative;
+    padding: 10px;
+    width: 400px;
+    margin: 0 auto;
+    margin-top: 20px;
+    border-radius: 3px;
+}
