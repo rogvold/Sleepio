@@ -5,6 +5,7 @@
 import * as types from '../constants/ActionTypes.js'
 
 const initialState = {
+    initialized: false,
     loading: false,
     usersMap: {},
     currentUser: undefined,
@@ -77,12 +78,24 @@ const UsersReducer =  (state = initialState, action = {}) => {
                 return {...state, currentUser: undefined, loading: false, error: undefined}
 
 
+
+            case types.INITIALIZE_AUTH:
+                return {...state, loading: true, initialized: false}
+
+            case types.INITIALIZE_AUTH_FAIL:
+                return {...state, loading: false, initialized: false}
+
+            case types.INITIALIZE_AUTH_SUCCESS:
+                var usersMap = Object.assign({}, state.usersMap, (action.user == undefined ) ? {} : {[action.user.id]: action.user});
+                return {...state, loading: false, initialized: true, currentUser: action.user, usersMap: usersMap}
+
+
+
             case types.LOAD_USERS:
                 return startLoading(state, action)
 
             case types.LOAD_USERS_FAIL:
                 return stopLoading(state, action)
-
 
             case types.LOAD_USERS_SUCCESS:
                 var newUsersMap = consumeUsers(state, action.users)

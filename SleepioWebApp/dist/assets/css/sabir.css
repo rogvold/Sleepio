@@ -37,3 +37,10 @@
     margin-top: 20px;
     border-radius: 3px;
 }
+
+.initializing_placeholder{
+    padding: 30px;
+    text-align: center;
+    font-size: 20px;
+    opacity: 0.4;
+}

@@ -16,6 +16,35 @@ const ParseAPI = {
         //}
     },
 
+    transformUser (u) {
+        if (u == undefined){
+            return undefined;
+        }
+        return {
+            id: u.id,
+            timestamp: (new Date(u.createdAt)).getTime(),
+            email: u.get('email'),
+            firstName: u.get('firstName'),
+            lastName: u.get('lastName'),
+            avatar: u.get('avatar')
+        }
+    },
+
+    fetchCurrentUserAsPromise () {
+        var currentUser = Parse.User.current();
+        if (currentUser == undefined || currentUser.id == undefined){
+            return Promise.resolve(undefined);
+        }
+        var self = this;
+        return new Promise((resolve, reject) => {
+            currentUser.fetch().then(function(user){
+                resolve(self.transformUser(user));
+            }, function(err){
+                reject(err);
+            });
+        });
+    },
+
     runCloudFunction (functionName, data, success, error){
         console.log('runCloudFunction uccured: ', functionName, data);
         if (functionName == undefined){
@@ -45,20 +74,6 @@ const ParseAPI = {
                 error(err);
             }
         });
-    },
-
-    transformUser (u) {
-        if (u == undefined){
-            return undefined;
-        }
-        return {
-            id: u.id,
-            timestamp: (new Date(u.createdAt)).getTime(),
-            email: u.get('email'),
-            firstName: u.get('firstName'),
-            lastName: u.get('lastName'),
-            avatar: u.get('avatar')
-        }
     },
 
     logIn (email, password, success, error){

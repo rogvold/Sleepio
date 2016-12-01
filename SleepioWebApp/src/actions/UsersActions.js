@@ -82,7 +82,6 @@ let onLoggedOut = () => {
 }
 //thunk
 export function logOut(){
-    console.log('thunk: logOut occured');
     return (dispatch, getState) => {
         var usersState = getState().users;
         console.log('usersState = ', usersState);
@@ -94,5 +93,36 @@ export function logOut(){
             () => dispatch(onLoggedOut()),
             () => dispatch(onLogoutFail())
         )
+    }
+}
+
+//AUTH_INIT
+let startAuthInit = () => {
+    return {
+        type: types.INITIALIZE_AUTH
+    }
+}
+let authInitFailed = () => {
+    return {
+        type: types.INITIALIZE_AUTH_FAIL
+    }
+}
+let authInitSuccess = (user) => {
+    return {
+        type: types.INITIALIZE_AUTH_SUCCESS,
+        user: user
+    }
+}
+//thunk
+export function initializeAuthorization(){
+    return (dispatch, getState) => {
+        if (getState().users.initialized == true){
+            return Promise.resolve()
+        }
+        dispatch(startAuthInit());
+        return ParseAPI.fetchCurrentUserAsPromise().then(
+            user => dispatch(authInitSuccess(user)),
+            err => dispatch(authInitFailed())
+        );
     }
 }
