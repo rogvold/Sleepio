@@ -4,6 +4,10 @@
 
 import React, {PropTypes} from 'react';
 
+import SimpleTemplate from '../templates/SimpleUserTemplate.js';
+
+import Dialog from '../dialog/Dialog.js';
+
 class UserIndexApp extends React.Component {
 
     static defaultProps = {
@@ -31,12 +35,21 @@ class UserIndexApp extends React.Component {
 
     }
 
+
+    getContent = () => {
+        return (
+            <div className={'user_index_app_content'} >
+
+
+
+            </div>
+        )
+    }
+
     render(){
 
         return (
-            <div>
-                user index app
-            </div>
+            <SimpleTemplate content={this.getContent()} />
         )
     }
 
