@@ -88,7 +88,7 @@ class SimpleUserTemplate extends React.Component {
                             </div>
                         </div>
                     </div>
-                    
+
                 </div>
 
                 <div className={'content'} >

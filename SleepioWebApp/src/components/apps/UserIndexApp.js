@@ -6,7 +6,11 @@ import React, {PropTypes} from 'react';
 
 import SimpleTemplate from '../templates/SimpleUserTemplate.js';
 
+import { connect } from 'react-redux';
+
 import Dialog from '../dialog/Dialog.js';
+
+import SessionsListPanel from '../sessions/panels/SessionsListPanel.js'
 
 class UserIndexApp extends React.Component {
 
@@ -15,7 +19,7 @@ class UserIndexApp extends React.Component {
     }
 
     static propTypes = {
-
+        currentUser: PropTypes.object.isRequired
     }
 
     state = {
@@ -37,10 +41,14 @@ class UserIndexApp extends React.Component {
 
 
     getContent = () => {
+        var user = this.props.currentUser;
+
         return (
             <div className={'user_index_app_content'} >
 
+                {user.email}
 
+                <SessionsListPanel userId={user.id} />
 
             </div>
         )
@@ -54,5 +62,15 @@ class UserIndexApp extends React.Component {
     }
 
 }
+
+
+const mapStateToProps = (state) => {
+    return {
+        currentUser: state.users.currentUser
+    }
+}
+
+
+UserIndexApp = connect(mapStateToProps, null)(UserIndexApp)
 
 export default UserIndexApp

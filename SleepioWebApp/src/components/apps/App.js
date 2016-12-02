@@ -14,6 +14,7 @@ const appHistory = useRouterHistory(createHashHistory)({ queryKey: false })
 import UserIndexApp from './UserIndexApp.js';
 import DevApp from './DevApp.js';
 import LoginApp from './LoginApp.js';
+import APIPlaygroundApp from './APIPlaygroundApp.js';
 
 class App extends React.Component {
 
@@ -51,6 +52,8 @@ class App extends React.Component {
                 </Route>
 
                 <Route path="/dev" component={DevApp}/>
+
+                <Route path="/api" component={APIPlaygroundApp}/>
 
             </Router>
         );
