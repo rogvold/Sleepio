@@ -8,6 +8,8 @@ import { bindActionCreators } from 'redux';
 
 import ListItem from './ListItem.js'
 
+import FlipMove from 'react-flip-move';
+
 class SessionsList extends React.Component {
 
     static defaultProps = {
@@ -15,7 +17,8 @@ class SessionsList extends React.Component {
     }
 
     static propTypes = {
-        onItemClick: PropTypes.func
+        onItemClick: PropTypes.func,
+        selectedSessionId: PropTypes.string
     }
 
     state = {}
@@ -42,13 +45,16 @@ class SessionsList extends React.Component {
 
         return (
             <div className={'sessions_list'} >
-                {list.map((item, k) => {
-                    var key = 'session_item_' + k;
-                    var onItemClick = this.onItemClick.bind(this, item);
-                    return (
-                        <ListItem key={key} onItemClick={onItemClick} />
-                    );
-                }, this)}
+                <FlipMove easing="cubic-bezier(0.39, 0, 0.45, 1.4)" staggerDurationBy={60} duration={300} >
+                    {list.map((item, k) => {
+                        var key = 'session_item_' + k + '_' + item.id;
+                        var onItemClick = this.onItemClick.bind(this, item);
+                        var isSelected = (item.id == this.props.selectedSessionId);
+                        return (
+                            <ListItem expanded={isSelected} session={item} key={key} onItemClick={onItemClick} />
+                        );
+                    }, this)}
+                </FlipMove>
             </div>
         )
     }

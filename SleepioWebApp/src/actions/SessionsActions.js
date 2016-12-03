@@ -60,6 +60,10 @@ let loadSessionDataFail = (sessionId, error) => {
 //thunk
 export function loadSessionData(sessionId){
     return (dispatch, getState) => {
+        var data = getState().sessions.sessionsDataMap[sessionId];
+        if (data != undefined){
+            return Promise.resolve();
+        }
         dispatch(loadSessionData_());
         return ParseAPI.runCloudFunctionAsPromise('loadSessionData', {sessionId: sessionId}).then(
                 data => dispatch(loadSessionDataSuccess(sessionId, data)),

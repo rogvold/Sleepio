@@ -46,8 +46,6 @@ class UserIndexApp extends React.Component {
         return (
             <div className={'user_index_app_content'} >
 
-                {user.email}
-
                 <SessionsListPanel userId={user.id} />
 
             </div>

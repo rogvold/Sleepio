@@ -57,7 +57,8 @@ const SessionsReducer =  (state = initialState, action = {}) => {
         case types.LOAD_SESSION_DATA_SUCCESS:
             let data = action.data;
             let sessionId = action.sessionId;
-            let newSessionsDataMap = Object.assign({}, state.sessionsDataMap, {sessionId: data})
+            let newSessionsDataMap = Object.assign({}, state.sessionsDataMap);
+            newSessionsDataMap[sessionId] = data;
             return {...state, loading: false, error: undefined, sessionsDataMap: newSessionsDataMap}
 
 

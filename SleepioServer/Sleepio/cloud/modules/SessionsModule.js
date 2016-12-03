@@ -4,6 +4,7 @@
 
 var ECR = require('cloud/helpers/ErrorCodesRegistry');
 var CommonHelper = require('cloud/helpers/CommonHelper');
+var MathHelper = require('cloud/helpers/MathHelper');
 
 var SessionsModule = {
 
@@ -23,7 +24,9 @@ var SessionsModule = {
             id: s.id,
             timestamp: (new Date(s.createdAt)).getTime(),
             startTimestamp: s.get('startTimestamp'),
-            userId: s.get('userId')
+            userId: s.get('userId'),
+            calcData: s.get('calcData'),
+            duration: s.get('duration')
         }
     },
 
@@ -142,14 +145,18 @@ var SessionsModule = {
             self.deleteAllSessionChunks(session.id, function(){
                 var dataArray = data.dataArray;
                 if (dataArray == undefined || dataArray.length == 0){
-                    success(session);
+                    success(self.transformSession(session));
                     return;
                 }
                 var chunks = [];
+                var calcData = {};
+                var duration = 0;
                 for (var i in dataArray){
                     var d = dataArray[i];
                     var points = d.points;
                     var n = Math.ceil(1.0 * points.length / self.DATA_CHUNK_SIZE);
+                    var cData = MathHelper.getCalcParams(points);
+                    calcData[d.type] = cData;
                     for (var j = 0; j < n; j++){
                         var from = j * self.DATA_CHUNK_SIZE;
                         var to = (j + 1) * self.DATA_CHUNK_SIZE;
@@ -160,15 +167,24 @@ var SessionsModule = {
                         chunk.set('points', pts);
                         chunk.set('dataType', d.type);
                         chunks.push(chunk);
+                        if (pts.length > 0){
+                            if (pts[pts.length - 1].t > duration){
+                                duration = pts[pts.length - 1].t;
+                            }
+                        }
                     }
                 }
                 Parse.Object.saveAll(chunks).then(function(){
-                    success(session);
+                    session.set('calcData', calcData);
+                    session.set('duration', duration);
+                    session.save().then(function(savedSession){
+                        success(self.transformSession(savedSession));
+                    });
                 }, function(err){
                     error(err);
                 });
             });
-        }, error, true);
+        }, error, false);
     },
 
     loadUserSessions: function(data, succes, error){
@@ -202,10 +218,10 @@ var SessionsModule = {
             var map = {};
             for (var i in chunks){
                 var c = chunks[i];
-                if (map[c.type] == undefined){
-                    map[c.type] = [];
+                if (map[c.dataType] == undefined){
+                    map[c.dataType] = [];
                 }
-                map[c.type] = map[c.type].concat(c.points);
+                map[c.dataType] = map[c.dataType].concat(c.points);
             }
             success(map);
         }, true);

@@ -1,5 +1,12 @@
 /*Sabir React framework core styles*/
 
+/*loading*/
+.mini_loading{
+    opacity: 0.6;
+    text-align: center;
+    padding: 10px;
+}
+
 /*auth form*/
 .auth_form{
 
@@ -42,6 +49,7 @@
 
 .initializing_placeholder{
     padding: 40px;
+    padding-top: 100px;
     text-align: center;
     font-size: 30px;
     opacity: 0.4;
@@ -58,7 +66,8 @@
     height: 50px;
     position: relative;
     background-color: white;
-    border-bottom: 1px solid lightgray;
+    /*border-bottom: 1px solid lightgray;*/
+    border-bottom: 1px solid #E7E9E9;
 }
 .simple_user_template > .header .header_inner{
     width: 960px;
@@ -155,7 +164,7 @@
     left: 0px;
     right: 0px;
     /*background: rgba(150, 181, 116, 0.8);*/
-    background: rgba(0, 0, 0, 0.8);
+    background: rgba(0, 0, 0, 0.9);
 
 }
 

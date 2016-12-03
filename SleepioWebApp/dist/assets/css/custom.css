@@ -1036,3 +1036,117 @@ body{
     padding: 24px !important;
 }
 
+/*sessions*/
+
+.sessions_list_panel{
+    position: relative;
+    width: 600px;
+    margin: 0 auto;
+    min-height: 200px;
+    margin-top: 10px;
+}
+
+.sessions_list{
+
+}
+
+.session_item{
+    width: 540px;
+    margin: 0 auto;
+    margin-bottom: 15px;
+    background-color: white;
+    border-radius: 4px;
+    padding: 10px;
+    cursor: pointer;
+    border: 1px solid #E7E9E9;
+}
+
+.session_item.expanded{
+    /*border: 1px solid #D9EFE1;*/
+}
+
+.session_item:hover{
+    /*opacity: 0.8;*/
+}
+
+.session_item > .header{
+    font-size: 16px;
+    line-height: 20px;
+    margin-bottom: 10px;
+    padding-bottom: 5px;
+    border-bottom: 1px dashed #E7E9E9;
+}
+
+.session_item > .content{
+
+}
+
+.session_item > .content .calc_data{
+
+}
+
+.session_item > .content .calc_data .info_line{
+    margin-bottom: 15px;
+    height: 35px;
+}
+
+.session_item > .content .calc_data .info_line .column{
+    vertical-align: top;
+    display: inline-block;
+    text-align: center;
+}
+
+.session_item > .content .calc_data .info_line .column.mini{
+    width: 12.5%;
+}
+
+.session_item > .content .calc_data .info_line .column.max{
+    width: 50%;
+}
+
+.session_item > .content .calc_data .info_line .column img{
+    margin: 0 auto;
+    height: 35px;
+}
+
+.session_item > .content .calc_data .info_line .chart_placeholder{
+    background-color: whitesmoke;
+    border-radius: 4px;
+    height: 100%;
+}
+
+.session_panel{
+    position: relative;
+    padding: 10px;
+    border-radius: 4px;
+    background-color: white;
+    /*min-height: 80vh;*/
+    min-width: 600px;
+}
+
+.session_panel > .header{
+    font-size: 20px;
+    line-height: 26px;
+}
+
+.session_panel > .content{
+
+}
+
+.session_panel > .content .chart_placeholder{
+    width: 100%;
+    height: 360px;
+}
+.session_chart_panel{
+    position: relative;
+    background-color: white;
+    /*min-width: 600px;*/
+    width: 600px;
+    height: 300px;
+    width: 100%;
+}
+
+.session_chart_panel > .chart_placeholder {
+    width: 100%;
+    height: 100%;
+}

@@ -12,6 +12,10 @@ import SessionsList from '../list/SessionsList.js'
 
 import CoolPreloader from '../../preloader/CoolPreloader.js'
 
+import Dialog from '../../dialog/Dialog.js';
+
+import SessionChartPanel from '../charts/SessionChartPanel.js';
+
 class SessionsListPanel extends React.Component {
 
     static defaultProps = {
@@ -24,7 +28,9 @@ class SessionsListPanel extends React.Component {
         sessionsMap: PropTypes.object.isRequired
     }
 
-    state = {}
+    state = {
+        selectedSession: undefined
+    }
 
     //ES5 - componentWillMount
     constructor(props) {
@@ -58,19 +64,28 @@ class SessionsListPanel extends React.Component {
         return arr;
     }
 
+    onItemClick = (item) => {
+        this.setState({
+            selectedSession: item
+        });
+    }
+
     render() {
         var user = this.props.usersMap[this.props.userId];
         var sessions = this.getSessions();
+        var selectedSessionId = (this.state.selectedSession == undefined) ? undefined : this.state.selectedSession.id;
 
         return (
             <div className={'sessions_list_panel'} >
 
                 <div className={'list_placeholder'} >
-                    <SessionsList sessions={sessions} />
+                    <SessionsList selectedSessionId={selectedSessionId} sessions={sessions} onItemClick={this.onItemClick} />
                 </div>
 
                 {this.props.loading == false ? null :
-                    <CoolPreloader />
+                    <div className={'mini_loading'} >
+                        loading...
+                    </div>
                 }
 
             </div>
@@ -92,6 +107,9 @@ const mapDispatchToProps = (dispatch) => {
     return {
         loadUserSessions: (userId) => {
             dispatch(actions.loadUserSessions(userId))
+        },
+        loadSessionData: (sessionId) => {
+            dispatch(actions.loadSessionData(sessionId))
         }
     }
 }
