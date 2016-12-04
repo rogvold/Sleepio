@@ -19,7 +19,7 @@ const dateFormat = (time) => {
 class ChartPanel extends React.Component {
 
     static defaultProps = {
-
+        isAnimationActive: true
     }
 
     static propTypes = {
@@ -52,10 +52,13 @@ class ChartPanel extends React.Component {
                 <ResponsiveContainer>
                     <LineChart data={plotData} margin={{ top: 0, right: 0, bottom: 0, left: 0 }} >
 
-                        <Line type="monotone" dot={false} yAxisId={'left'}
+                        <Line type="monotone" dot={false} yAxisId={'left'} isAnimationActive={this.props.isAnimationActive}
+                              connectNulls={false}
                               dataKey="hr" strokeWidth={2} stroke="#DE90BB" />
 
                         <Line type="monotone" dot={false} yAxisId={'right'}
+                              connectNulls={false}
+                              isAnimationActive={this.props.isAnimationActive}
                               dataKey="breathing" strokeWidth={2} stroke="#82ca9d" />
 
                         <XAxis dataKey="t"  tickFormatter={dateFormat} tickCount={5} minTickGap={10}  />

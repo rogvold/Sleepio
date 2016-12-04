@@ -12,6 +12,13 @@ import Dialog from '../dialog/Dialog.js';
 
 import SessionsListPanel from '../sessions/panels/SessionsListPanel.js'
 
+import PusherComponent from '../pusher/PusherComponent.js'
+import PusherMessagesWrapper from '../pusher/PusherMessagesWrapper.js'
+
+import HRMDeviceEmulator from '../emulators/HRMDeviceEmulator.js';
+
+import RealtimePanel from '../sessions/realtime/RealtimePanel.js'
+
 class UserIndexApp extends React.Component {
 
     static defaultProps = {
@@ -46,7 +53,13 @@ class UserIndexApp extends React.Component {
         return (
             <div className={'user_index_app_content'} >
 
+                <PusherComponent />
+
+                <RealtimePanel />
+
                 <SessionsListPanel userId={user.id} />
+
+
 
             </div>
         )

@@ -15,6 +15,7 @@ import UserIndexApp from './UserIndexApp.js';
 import DevApp from './DevApp.js';
 import LoginApp from './LoginApp.js';
 import APIPlaygroundApp from './APIPlaygroundApp.js';
+import EmulatorApp from './EmulatorApp.js';
 
 class App extends React.Component {
 
@@ -54,6 +55,8 @@ class App extends React.Component {
                 <Route path="/dev" component={DevApp}/>
 
                 <Route path="/api" component={APIPlaygroundApp}/>
+
+                <Route path="/emulator" component={EmulatorApp}/>
 
             </Router>
         );

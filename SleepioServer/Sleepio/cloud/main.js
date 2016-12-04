@@ -1,9 +1,11 @@
 
 var UsersModule = require('cloud/modules/UsersModule');
 var SessionsModule = require('cloud/modules/SessionsModule');
+var PusherModule = require('cloud/modules/PusherModule');
 
 var ECR = require('cloud/helpers/ErrorCodesRegistry');
 
+//users
 Parse.Cloud.define("login", function(request, response) {
     var data = request.params.data;
     if (data == undefined){
@@ -17,6 +19,8 @@ Parse.Cloud.define("login", function(request, response) {
     }, true);
 });
 
+
+//sessions
 Parse.Cloud.define("uploadData", function(request, response) {
     var data = request.params.data;
     if (data == undefined){
@@ -84,6 +88,27 @@ Parse.Cloud.define("deleteSession", function(request, response) {
         data = request.params;
     }
     SessionsModule.deleteSession(data, function(){
+        response.success(data);
+    }, function(err){
+        response.error(err);
+    });
+});
+
+//realtime
+Parse.Cloud.define("uploadRealtimeData", function(request, response) {
+    var data = request.params.data;
+    if (data == undefined){
+        data = request.params;
+    }
+    var user = request.user;
+    if (user == undefined){
+        response.error({code: ECR.ACCESS_DENIED.code, message: 'you are not authorized'});
+        return;
+    }
+
+    var channelName = 'user_data_' + user.id + '';
+    var eventName = 'realtime_data';
+    PusherModule.sendMessage(channelName, eventName, data, function(){
         response.success(data);
     }, function(err){
         response.error(err);

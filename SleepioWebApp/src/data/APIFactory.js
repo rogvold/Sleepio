@@ -71,166 +71,28 @@ var APIFactory = {
         ]
     },
 
-
-    SIGN_UP: {
-        name: 'signup',
-        description: 'sign up',
-        requestType: 'POST',
-        headers: [],
-        parameters: [{
-            name: 'email',
-            description: 'email of user',
-            isRequired: true,
-            paramType: 'string'
-        },
+    UPLOAD_REALTIME_DATA: {
+        name: 'uploadRealtimeData',
+        description: 'send realtime data',
+        requestType: 'GET',
+        headers: [{name: 'X-Parse-Session-Token'}],
+        parameters: [
             {
-                name: 'password',
-                description: 'password of user',
+                name: 'breathingPoints',
                 isRequired: true,
-                paramType: 'string'
-            }
-        ]
-    },
-
-    CREATE_TASK: {
-        name: 'createTask',
-        description: 'create task',
-        requestType: 'POST',
-        headers: [{name: 'X-Parse-Session-Token'}],
-        parameters: [{
-            name: 'name',
-            description: 'name of task',
-            isRequired: true,
-            paramType: 'string'
-        },
-            {
-                name: 'description',
-                description: 'description of task',
-                isRequired: false,
-                paramType: 'string'
-            }
-        ]
-    },
-
-    UPDATE_TASK: {
-        name: 'updateTask',
-        description: 'update existing task',
-        requestType: 'POST',
-        headers: [{name: 'X-Parse-Session-Token'}],
-        parameters: [{
-            name: 'id',
-            description: 'id of the task you want to update',
-            isRequired: true,
-            paramType: 'string'
+                paramType: 'array',
+                description: 'Массив точек дыхания. Пример: [{"t": 1480852922665, "value": 20}, {"t": 1480852923665, "value": 23}, ...] , где value - частота дыхания, t - таймстемп точки (в миллисекундах)'
             },
             {
-                name: 'name',
-                description: 'new name of task',
-                isRequired: false,
-                paramType: 'string'
-            },
-            {
-                name: 'description',
-                description: 'new description of task',
-                isRequired: false,
-                paramType: 'string'
+                name: 'heartRatePoints',
+                isRequired: true,
+                paramType: 'array',
+                description: 'Массив точек пульса. Пример: [{"t": 1480852922665, "value": 63}, {"t": 1480852923665, "value": 65}, ...] , где value - пульс, t - таймстемп точки (в миллисекундах)'
             }
         ]
-    },
-
-    DELETE_TASK: {
-        name: 'deleteTask',
-        description: 'delete existing task',
-        requestType: 'POST',
-        headers: [{name: 'X-Parse-Session-Token'}],
-        parameters: [{
-            name: 'id',
-            description: 'id of the task you want to delete',
-            isRequired: true,
-            paramType: 'string'
-        }
-        ]
-    },
-
-    LOAD_USER_TASKS: {
-        name: 'getTasks',
-        description: 'returns list of user tasks',
-        requestType: 'POST',
-        headers: [{name: 'X-Parse-Session-Token'}],
-        parameters: []
-    },
-
-    CREATE_INTERVAL: {
-        name: 'createInterval',
-        description: 'creates interval of the task',
-        requestType: 'POST',
-        headers: [{name: 'X-Parse-Session-Token'}],
-        parameters: [{
-            name: 'taskId',
-            isRequired: true,
-            paramType: 'string',
-            description: 'id of the task'
-        }, {
-            name: 'start',
-            isRequired: true,
-            paramType: 'number',
-            description: 'UNIX timestamp of start (in milliseconds)'
-        }, {
-            name: 'duration',
-            isRequired: true,
-            paramType: 'number',
-            description: 'duration of the interval (in milliseconds)'
-        }]
-    },
-
-    UPDATE_INTERVAL: {
-        name: 'updateInterval',
-        description: 'updates existing interval',
-        requestType: 'POST',
-        headers: [{name: 'X-Parse-Session-Token'}],
-        parameters: [{
-            name: 'id',
-            isRequired: true,
-            paramType: 'string',
-            description: 'id of the interval'
-        }, {
-            name: 'start',
-            isRequired: false,
-            paramType: 'number',
-            description: 'new UNIX timestamp of start (in milliseconds)'
-        }, {
-            name: 'duration',
-            isRequired: false,
-            paramType: 'number',
-            description: 'new duration of the interval (in milliseconds)'
-        }]
-    },
-
-    DELETE_INTERVAL: {
-        name: 'deleteInterval',
-        description: 'deletes existing interval',
-        requestType: 'POST',
-        headers: [{name: 'X-Parse-Session-Token'}],
-        parameters: [{
-            name: 'id',
-            isRequired: true,
-            paramType: 'string',
-            description: 'id of the interval'
-        }]
-    },
-
-    LOAD_TASK_INTERVALS: {
-        name: 'getIntervals',
-        description: 'returns list of task intervals ordered by start',
-        requestType: 'POST',
-        headers: [{name: 'X-Parse-Session-Token'}],
-        parameters: [{
-            name: 'taskId',
-            isRequired: true,
-            paramType: 'string',
-            description: 'task id'
-        }]
     }
+
+
 
 };
 

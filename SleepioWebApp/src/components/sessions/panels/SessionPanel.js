@@ -96,7 +96,7 @@ class SessionPanel extends React.Component {
     render() {
         var session = this.props.sessionsMap[this.props.sessionId];
         let plotData = this.getPlotData();
-        console.log('render: plotData = ', plotData);
+
 
         return (
             <div className={'session_panel'} >

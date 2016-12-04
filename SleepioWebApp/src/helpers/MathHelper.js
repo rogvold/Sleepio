@@ -39,6 +39,74 @@ var MathHelper = {
             });
         }
         return arr;
+    },
+
+    getPlotData: function(heartRatePoints, breathingPoints, fromTimestamp){
+        //console.log('MathHelper: getPlotData: heartRatePoints, breathingPoints = ', heartRatePoints, breathingPoints);
+        if (fromTimestamp == undefined){
+            fromTimestamp = 0;
+        }
+        var arr = [];
+        var map = {};
+
+        for (var i in heartRatePoints){
+            var hrD = heartRatePoints[i];
+            var t = hrD.t;
+            var key = t + '';
+            if (map[key] == undefined){
+                map[key] = {};
+            }
+            map[key].t = t;
+            map[key].hr = hrD.value;
+        }
+
+
+        for (var i in breathingPoints){
+            var bD = breathingPoints[i];
+            var t = bD.t;
+            var key = t + '';
+            if (map[key] == undefined){
+                map[key] = {};
+            }
+            map[key].t = t;
+            map[key].breathing = bD.value;
+        }
+
+
+        for (var key in map){
+            var d = map[key];
+            arr.push({t: d.t, breathing: d.breathing, hr: d.hr});
+        }
+
+        var lastHR = undefined;
+        var lastBreathing = undefined;
+
+
+
+        arr.sort(function(a, b){
+            return (a.t - b.t)
+        });
+
+        for (var i in arr){
+            var a = arr[i];
+            if (a.hr != undefined){
+                lastHR = a.hr;
+            }else {
+                arr[i].hr = lastHR;
+            }
+            if (a.breathing != undefined){
+                lastBreathing = a.breathing;
+            }else {
+                arr[i].breathing = lastBreathing;
+            }
+        }
+
+        arr = arr.filter(function(a){
+            return (a.t >= fromTimestamp)
+        });
+
+        return arr;
+
     }
 
 }

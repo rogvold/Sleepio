@@ -44,6 +44,9 @@ var PlaygroundPanel = React.createClass({
                                   parameters={APIFactory.UPLOAD_DATA.parameters} headers={defaultHeaders.concat(APIFactory.UPLOAD_DATA.headers)}
                     />
 
+                <APIFunctionPanel name={APIFactory.UPLOAD_REALTIME_DATA.name} description={APIFactory.UPLOAD_REALTIME_DATA.description}
+                                  parameters={APIFactory.UPLOAD_REALTIME_DATA.parameters} headers={defaultHeaders.concat(APIFactory.UPLOAD_REALTIME_DATA.headers)}
+                    />
 
             </div>
         );

@@ -11,6 +11,9 @@ import CommonHelper from '../../../helpers/CommonHelper.js';
 class SignupForm extends React.Component {
 
     static defaultProps = {
+        firstNameEnabled: true,
+        lastNameEnabled: true,
+
         onSubmit (data){
             console.log('default onSubmit occured: data = ', data);
         }
@@ -23,7 +26,9 @@ class SignupForm extends React.Component {
     state = {
         email: '',
         password: '',
-        passwordConfirmation: ''
+        passwordConfirmation: '',
+        firstName: '',
+        lastName: ''
     }
 
     //ES5 - componentWillMount
@@ -40,19 +45,30 @@ class SignupForm extends React.Component {
     }
 
     getData = () => {
-        return {
+        var d = {
             email: this.state.email,
-            password: this.state.password
+            password: this.state.password,
+            firstName: this.state.firstName,
+            lastName: this.state.lastName
         }
+        return d;
     }
 
     canSubmit = () => {
+        var d = this.getData();
         var email = this.state.email;
         if (CommonHelper.isValidEmail(email) == false){
             return false;
         }
         var {password, passwordConfirmation} = this.state;
         if (password == undefined || password.trim() == '' || password != passwordConfirmation){
+            return false;
+        }
+
+        if (this.props.firstNameEnabled == true && d.firstName == undefined || d.firstName.trim() == ''){
+            return false;
+        }
+        if (this.props.lastNameEnabled == true && d.lastName == undefined || d.lastName.trim() == ''){
             return false;
         }
         return true;
@@ -68,7 +84,23 @@ class SignupForm extends React.Component {
         return (
             <div className={'signup_form ui form'} >
 
+                {this.props.firstNameEnabled == false ? null :
+                    <div className={'field'} >
+                        <label>First name</label>
+                        <input value={this.state.firstName} placeholder={'First name'}
+                               onChange={(e) => {this.setState({firstName: e.target.value})}}
+                            />
+                    </div>
+                }
 
+                {this.props.lastNameEnabled == false ? null :
+                    <div className={'field'} >
+                        <label>First name</label>
+                        <input value={this.state.lastName} placeholder={'Last name'}
+                               onChange={(e) => {this.setState({lastName: e.target.value})}}
+                            />
+                    </div>
+                }
 
                 <div className={'field'} >
                     <label>Email</label>
