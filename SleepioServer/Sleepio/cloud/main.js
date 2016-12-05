@@ -88,7 +88,7 @@ Parse.Cloud.define("deleteSession", function(request, response) {
         data = request.params;
     }
     SessionsModule.deleteSession(data, function(){
-        response.success(data);
+        response.success({status: 'ok'});
     }, function(err){
         response.error(err);
     });
@@ -109,7 +109,7 @@ Parse.Cloud.define("uploadRealtimeData", function(request, response) {
     var channelName = 'user_data_' + user.id + '';
     var eventName = 'realtime_data';
     PusherModule.sendMessage(channelName, eventName, data, function(){
-        response.success(data);
+        response.success({status: 'ok'});
     }, function(err){
         response.error(err);
     });
